@@ -54,14 +54,17 @@ def get_original_data(filename):
 header=st.container()
 choose_dataset = st.container()
 dataset = st.container()
+footer = st.container()
+cite_footer = st.container()
 
 
 with header:
-    st.header("Welcome to a visual representation of KNNOR")
+    st.title("K Nearest Neighbor OveRsampling Approach [KNNOR]")
+    st.header("A visual demo")
 
 
 with choose_dataset:
-    st.header("Please choose the dataset")
+    st.subheader("Please choose the dataset")
     list_files=os.listdir("data")
     list_files=[i.split(".csv")[0] for i in list_files]
     print(list_files)
@@ -72,7 +75,7 @@ with choose_dataset:
 
 with dataset:    
     st.header(file_name)
-    st.text('I found this dataset on UCB')
+    
     
 
     aug_data = get_augmented_data('data/'+file_name+'.csv')
@@ -87,19 +90,19 @@ with dataset:
     uniq_props=list(aug_data.proportion.unique())
     print("Unique peoportions are ",uniq_props)
     sel_col, disp_col = st.columns(2)
-    proportion = sel_col.selectbox('What is the proportion?', options=uniq_props, index = 0)
+    proportion = sel_col.selectbox('Proportion of minority over majority:', options=uniq_props, index = 0)
 
     num_nbrs_max=int(aug_data.num_neighbors.max())
     num_nbrs_min=int(aug_data.num_neighbors.min())
 
-    num_nbrs = sel_col.slider('Number of neighbors?', min_value=num_nbrs_min, 
+    num_nbrs = sel_col.slider('Number of neighbors used:', min_value=num_nbrs_min, 
                             max_value=num_nbrs_max, value=num_nbrs_min, step=2)
 
     max_dist_max=float(aug_data.max_dist.max())
     max_dist_min=float(aug_data.max_dist.min())
     print(max_dist_min,max_dist_max)
 
-    max_dist = sel_col.slider('Distance', 
+    max_dist = sel_col.slider('Distance at which points are to be placed:', 
         min_value=max_dist_min, max_value=max_dist_max, 
         value=max_dist_min, step=0.2)
 
@@ -107,7 +110,7 @@ with dataset:
     min_prop_minority=float(aug_data.prop_minority.min())
     max_prop_minority=float(aug_data.prop_minority.max())
     print("Proportions of minority used",min_prop_minority,"to",max_prop_minority)
-    prop_minority_used=sel_col.slider("Proportion of minority",
+    prop_minority_used=sel_col.slider("Proportion of original minority population used:",
         min_value=min_prop_minority, max_value=max_prop_minority, 
         value=min_prop_minority, step=0.2)
 
@@ -116,7 +119,7 @@ with dataset:
     feat1=sel_col.selectbox('Feature for axis 1?', options=feature_names, index = 0)
     
     new_feature_reversed = list(reversed(feature_names))
-    feat2=sel_col.selectbox('Feature for axis 2?', options=new_feature_reversed, index = 0)
+    feat2=sel_col.selectbox('Feature for axis 2?', options=new_feature_reversed, index = len(new_feature_reversed)-2)
     print("LOOking for proportion ",proportion)
     print("Looking for num neighbors",num_nbrs)
 
@@ -170,3 +173,35 @@ with dataset:
     disp_col.caption('Count of augmented minority datapoints:')
     disp_col.write(aug_data.shape[0])
     
+with footer:
+    left_col, right_col = st.columns(2)
+    left_col.header("Supporting ")
+    left_col.write("Supporting [research paper](https://www.sciencedirect.com/science/article/pii/S1568494621010942?via%3Dihub)")
+    left_col.write("Source code [repository](https://github.com/ashhadulislam/augmentdatalib_source)")
+    left_col.write("Code [documentation](https://augmentdatalib-docs.readthedocs.io/en/latest/)")
+    
+
+    right_col.header("Documents")
+    right_col.write("Explainer [video](https://youtu.be/2iwZ4zBfWqM)")
+    right_col.write("Medium [article](#)")
+    right_col.write("If you have queries or suggestions, please get in touch\
+        at ashhadulislam@gmail.com")
+
+
+
+with cite_footer:
+    st.header("Citation details")
+    st.write("""
+        @article{ISLAM2022108288,\n
+        title = {KNNOR: An oversampling technique for imbalanced datasets},\n
+        journal = {Applied Soft Computing},\n
+        volume = {115},\n
+        pages = {108288},\n
+        year = {2022},\n
+        issn = {1568-4946},\n
+        doi = {https://doi.org/10.1016/j.asoc.2021.108288},\n
+        url = {https://www.sciencedirect.com/science/article/pii/S1568494621010942},\n
+        author = {Ashhadul Islam and Samir Brahim Belhaouari and Atiq Ur Rehman and Halima Bensmail}\n
+        }
+        """)
+
