@@ -183,7 +183,7 @@ with footer:
 
     right_col.header("Documents")
     right_col.write("Explainer [video](https://youtu.be/2iwZ4zBfWqM)")
-    right_col.write("Medium [article](#)")
+    right_col.write("Medium [article](https://bit.ly/knnorM)")
     right_col.write("If you have queries or suggestions, please get in touch\
         at ashhadulislam@gmail.com")
 
