@@ -60,7 +60,7 @@ cite_footer = st.container()
 
 with header:
     st.title("K Nearest Neighbor OveRsampling Approach [KNNOR]")
-    st.header("A visual demo")
+    st.subheader("A visual demo on adding artficial data points to an imbalanced dataset")
 
 
 with choose_dataset:
@@ -191,17 +191,19 @@ with footer:
 
 with cite_footer:
     st.header("Citation details")
-    st.write("""
-        @article{ISLAM2022108288,\n
-        title = {KNNOR: An oversampling technique for imbalanced datasets},\n
-        journal = {Applied Soft Computing},\n
-        volume = {115},\n
-        pages = {108288},\n
-        year = {2022},\n
-        issn = {1568-4946},\n
-        doi = {https://doi.org/10.1016/j.asoc.2021.108288},\n
-        url = {https://www.sciencedirect.com/science/article/pii/S1568494621010942},\n
-        author = {Ashhadul Islam and Samir Brahim Belhaouari and Atiq Ur Rehman and Halima Bensmail}\n
-        }
-        """)
-
+    citation_code='''
+@article{ISLAM2022108288,
+title = {KNNOR: An oversampling technique for imbalanced datasets},
+journal = {Applied Soft Computing},
+volume = {115},
+pages = {108288},
+year = {2022},
+issn = {1568-4946},
+doi = {https://doi.org/10.1016/j.asoc.2021.108288},
+url = {https://www.sciencedirect.com/science/article/pii/S1568494621010942},
+author = {Ashhadul Islam and Samir Brahim Belhaouari and Atiq Ur Rehman and Halima Bensmail},
+keywords = {Data augmentation, Machine learning, Imbalanced data, Nearest neighbor, 
+}
+'''
+    st.code(citation_code, language='text')
+    
